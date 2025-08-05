@@ -1,6 +1,8 @@
 # KidSocial - Fun Social Media for Kids! 🌟
 
-A modern, interactive social media application designed specifically for children to share their thoughts, experiences, and creativity in a safe, colorful environment.
+A modern, interactive social media application for kids playtime designed specifically for children to share their thoughts, experiences, and creativity in a safe, colorful environment. 
+
+Note: Data is not stored. If you access site on different browser or machine, all the saved records would be gone. This is for play purpose only.
 
 ## ✨ Features
 

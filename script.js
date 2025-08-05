@@ -13,6 +13,7 @@ class KidSocialApp {
 
     init() {
         this.setupEventListeners();
+        this.setupModalListeners();
         this.loadPosts();
         this.setAgeGroup('6-8'); // Default age group
         this.addSamplePosts();
@@ -144,7 +145,7 @@ class KidSocialApp {
         postDiv.innerHTML = `
             <div class="post-header">
                 <div class="post-avatar">
-                    ${post.user.avatar}
+                    ${post.user.avatar.startsWith('images/') ? `<img src="${post.user.avatar}" alt="${post.user.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">` : post.user.avatar}
                 </div>
                 <div class="post-user-info">
                     <div class="post-username">${post.user.name}</div>
@@ -258,25 +259,25 @@ class KidSocialApp {
         const samplePosts = [
             {
                 content: "Just learned to ride my bike today! 🚴‍♂️ It was so much fun! Mom and dad were cheering for me! 🌟",
-                user: { name: 'Alex', avatar: '👦' },
+                user: { name: 'Alex', avatar: 'images/kid2.jpeg' },
                 reactions: { '👍': 5, '❤️': 3, '😊': 2, '🎉': 4, '🌟': 1 },
                 userReactions: {}
             },
             {
                 content: "My cat Fluffy is the best friend ever! 🐱 She always knows when I'm sad and comes to cuddle with me. Love you Fluffy! ❤️",
-                user: { name: 'Emma', avatar: '👧' },
+                user: { name: 'Emma', avatar: 'images/kid3.jpg' },
                 reactions: { '👍': 3, '❤️': 7, '😊': 4, '🎉': 1, '🌟': 2 },
                 userReactions: {}
             },
             {
                 content: "Today I made the biggest sandcastle at the beach! 🏖️ It had towers, bridges, and even a moat! Can't wait to go back! 🏰",
-                user: { name: 'Jake', avatar: '👦' },
+                user: { name: 'Jake', avatar: 'images/kid4.jpeg' },
                 reactions: { '👍': 6, '❤️': 2, '😊': 3, '🎉': 5, '🌟': 4 },
                 userReactions: {}
             },
             {
                 content: "Just finished reading my favorite book for the 10th time! 📚 Books are like magic portals to amazing worlds! ✨",
-                user: { name: 'Sophie', avatar: '👧' },
+                user: { name: 'Sophie', avatar: 'images/kid1.jpeg' },
                 reactions: { '👍': 4, '❤️': 6, '😊': 3, '🎉': 2, '🌟': 5 },
                 userReactions: {}
             }
@@ -401,8 +402,9 @@ class KidSocialApp {
             const profileImage = document.getElementById('profileImage');
             const photoIcon = document.getElementById('photoIcon');
             
-            profileImage.style.display = 'none';
-            photoIcon.style.display = 'block';
+            profileImage.src = 'images/kid1.jpeg';
+            profileImage.style.display = 'block';
+            photoIcon.style.display = 'none';
             
             localStorage.removeItem('kidSocial_profileImage');
             this.showNotification('Profile photo reset! 👤', 'success');
@@ -423,8 +425,9 @@ class KidSocialApp {
             // Reset profile
             const profileImage = document.getElementById('profileImage');
             const photoIcon = document.getElementById('photoIcon');
-            profileImage.style.display = 'none';
-            photoIcon.style.display = 'block';
+            profileImage.src = 'images/kid1.jpeg';
+            profileImage.style.display = 'block';
+            photoIcon.style.display = 'none';
             
             // Clear localStorage
             localStorage.removeItem('kidSocial_profileImage');
@@ -436,14 +439,82 @@ class KidSocialApp {
     // Load profile image on startup
     loadProfileImage() {
         const savedImage = localStorage.getItem('kidSocial_profileImage');
+        const profileImage = document.getElementById('profileImage');
+        const photoIcon = document.getElementById('photoIcon');
+        
         if (savedImage) {
-            const profileImage = document.getElementById('profileImage');
-            const photoIcon = document.getElementById('photoIcon');
-            
             profileImage.src = savedImage;
             profileImage.style.display = 'block';
             photoIcon.style.display = 'none';
+        } else {
+            // Use default image
+            profileImage.src = 'images/kid1.jpeg';
+            profileImage.style.display = 'block';
+            photoIcon.style.display = 'none';
         }
+    }
+
+    // Settings modal functionality
+    openSettings() {
+        document.getElementById('settingsModal').style.display = 'block';
+    }
+
+    closeSettings() {
+        document.getElementById('settingsModal').style.display = 'none';
+    }
+
+    // Story creation functionality
+    openNewStory() {
+        document.getElementById('aiStorySection').style.display = 'none';
+        document.getElementById('newStorySection').style.display = 'block';
+        document.getElementById('newStoryText').focus();
+    }
+
+    openAIStory() {
+        document.getElementById('newStorySection').style.display = 'none';
+        document.getElementById('aiStorySection').style.display = 'block';
+        document.getElementById('storyPrompt').focus();
+    }
+
+    saveNewStory() {
+        const storyText = document.getElementById('newStoryText').value.trim();
+        if (!storyText) {
+            this.showNotification('Please write a story to save!', 'warning');
+            return;
+        }
+
+        // Save story to localStorage
+        const savedStories = JSON.parse(localStorage.getItem('kidSocial_stories') || '[]');
+        const newStory = {
+            id: Date.now(),
+            content: storyText,
+            timestamp: new Date(),
+            type: 'manual'
+        };
+        savedStories.unshift(newStory);
+        localStorage.setItem('kidSocial_stories', JSON.stringify(savedStories));
+
+        // Clear the textarea
+        document.getElementById('newStoryText').value = '';
+        
+        this.showNotification('Story saved successfully! 📖', 'success');
+    }
+
+    // Close modal when clicking outside
+    setupModalListeners() {
+        const modal = document.getElementById('settingsModal');
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.closeSettings();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeSettings();
+            }
+        });
     }
 }
 

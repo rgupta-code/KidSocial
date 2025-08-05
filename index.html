@@ -10,47 +10,6 @@
 </head>
 <body>
     <div id="app">
-        <!-- Banner -->
-        <div class="banner">
-            <div class="banner-content">
-                <div class="banner-left">
-                    <div class="profile-section">
-                        <div class="profile-photo" onclick="document.getElementById('photoUpload').click()">
-                            <img id="profileImage" src="" alt="Profile" style="display: none;">
-                            <i id="photoIcon" class="fas fa-camera"></i>
-                        </div>
-                        <input type="file" id="photoUpload" accept="image/*" style="display: none;" onchange="app.handlePhotoUpload(event)">
-                        <div class="profile-info">
-                            <h2 class="profile-name">KidUser</h2>
-                            <p class="profile-age">Age: <span id="currentAge">6-8</span> years</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-right">
-                    <div class="birthday-section">
-                        <h3><i class="fas fa-birthday-cake"></i> Today's Birthdays</h3>
-                        <div class="birthday-list">
-                            <div class="birthday-item">
-                                <span class="birthday-emoji">🎂</span>
-                                <span class="birthday-name">Emma</span>
-                                <span class="birthday-age">7 years</span>
-                            </div>
-                            <div class="birthday-item">
-                                <span class="birthday-emoji">🎈</span>
-                                <span class="birthday-name">Jake</span>
-                                <span class="birthday-age">9 years</span>
-                            </div>
-                            <div class="birthday-item">
-                                <span class="birthday-emoji">🎁</span>
-                                <span class="birthday-name">Sophie</span>
-                                <span class="birthday-age">5 years</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Header -->
         <header class="header">
             <div class="header-content">
@@ -58,106 +17,209 @@
                     <i class="fas fa-star"></i>
                     KidSocial
                 </h1>
-                <div class="age-selector">
-                    <label for="ageGroup">Choose your age:</label>
-                    <select id="ageGroup" class="age-dropdown">
-                        <option value="3-5">3-5 years</option>
-                        <option value="6-8">6-8 years</option>
-                        <option value="9-12">9-12 years</option>
-                    </select>
+                <div class="header-controls">
+                    <div class="age-selector">
+                        <label for="ageGroup">Age:</label>
+                        <select id="ageGroup" class="age-dropdown">
+                            <option value="3-5">3-5 years</option>
+                            <option value="6-8">6-8 years</option>
+                            <option value="9-12">9-12 years</option>
+                        </select>
+                    </div>
+                    <button class="settings-btn" onclick="app.openSettings()">
+                        <i class="fas fa-cog"></i>
+                    </button>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Create Post Section -->
-            <section class="create-post">
-                <div class="post-form">
-                    <div class="user-avatar">
-                        <i class="fas fa-user-circle"></i>
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Left Section - User Profile & Friends -->
+            <section class="left-section">
+                <div class="user-profile">
+                    <div class="profile-photo" onclick="document.getElementById('photoUpload').click()">
+                        <img id="profileImage" src="images/kid1.jpeg" alt="Profile" style="display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        <i id="photoIcon" class="fas fa-camera" style="display: none;"></i>
                     </div>
-                    <div class="post-input-container">
-                        <textarea id="postText" placeholder="What's on your mind? Share something fun! 😊" maxlength="200"></textarea>
-                        <div class="post-actions">
-                            <div class="emoji-picker">
-                                <button class="emoji-btn" onclick="toggleEmojiPicker()">
-                                    <i class="fas fa-smile"></i>
-                                </button>
-                                <div id="emojiPicker" class="emoji-picker-dropdown">
-                                    <span onclick="addEmoji('😊')">😊</span>
-                                    <span onclick="addEmoji('🎉')">🎉</span>
-                                    <span onclick="addEmoji('🌟')">🌟</span>
-                                    <span onclick="addEmoji('🎨')">🎨</span>
-                                    <span onclick="addEmoji('🦄')">🦄</span>
-                                    <span onclick="addEmoji('🌈')">🌈</span>
-                                    <span onclick="addEmoji('🎮')">🎮</span>
-                                    <span onclick="addEmoji('🍕')">🍕</span>
-                                    <span onclick="addEmoji('🐱')">🐱</span>
-                                    <span onclick="addEmoji('🐶')">🐶</span>
-                                    <span onclick="addEmoji('🦋')">🦋</span>
-                                    <span onclick="addEmoji('🌺')">🌺</span>
-                                </div>
+                    <input type="file" id="photoUpload" accept="image/*" style="display: none;" onchange="app.handlePhotoUpload(event)">
+                    <h3 class="profile-name">KidUser</h3>
+                    <p class="profile-age">Age: <span id="currentAge">6-8</span> years</p>
+                </div>
+                
+                <div class="friends-section">
+                    <h4><i class="fas fa-users"></i> My Friends</h4>
+                    <div class="friends-list">
+                        <div class="friend-item">
+                            <div class="friend-avatar">
+                                <img src="images/kid2.jpeg" alt="Alex" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                             </div>
-                            <button id="createPostBtn" class="post-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                Share
-                            </button>
+                            <div class="friend-info">
+                                <div class="friend-name">Alex</div>
+                                <div class="friend-status">Online</div>
+                            </div>
+                        </div>
+                        <div class="friend-item">
+                            <div class="friend-avatar">
+                                <img src="images/kid3.jpg" alt="Emma" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            </div>
+                            <div class="friend-info">
+                                <div class="friend-name">Emma</div>
+                                <div class="friend-status">Online</div>
+                            </div>
+                        </div>
+                        <div class="friend-item">
+                            <div class="friend-avatar">
+                                <img src="images/kid4.jpeg" alt="Jake" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            </div>
+                            <div class="friend-info">
+                                <div class="friend-name">Jake</div>
+                                <div class="friend-status">Offline</div>
+                            </div>
+                        </div>
+                        <div class="friend-item">
+                            <div class="friend-avatar">
+                                <img src="images/kid1.jpeg" alt="Sophie" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            </div>
+                            <div class="friend-info">
+                                <div class="friend-name">Sophie</div>
+                                <div class="friend-status">Online</div>
+                            </div>
+                        </div>
+                        <div class="friend-item">
+                            <div class="friend-avatar">
+                                <img src="images/kid2.jpeg" alt="Tommy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            </div>
+                            <div class="friend-info">
+                                <div class="friend-name">Tommy</div>
+                                <div class="friend-status">Offline</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Posts Feed -->
-            <section class="posts-feed" id="postsFeed">
-                <!-- Posts will be dynamically added here -->
-            </section>
-
-            <!-- AI Story Generator -->
-            <section class="ai-story-section">
-                <div class="story-generator">
-                    <h3><i class="fas fa-magic"></i> AI Story Generator</h3>
-                    <p>Let AI create a fun story for you!</p>
-                    <div class="story-input">
-                        <input type="text" id="storyPrompt" placeholder="Tell me about your favorite animal or adventure..." maxlength="100">
-                        <button id="generateStoryBtn" class="story-btn">
-                            <i class="fas fa-wand-magic-sparkles"></i>
-                            Generate Story
-                        </button>
+            <!-- Middle Section - Posts Feed -->
+            <section class="middle-section">
+                <div class="create-post">
+                    <div class="post-form">
+                        <div class="user-avatar">
+                            <img src="images/kid1.jpeg" alt="User" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="post-input-container">
+                            <textarea id="postText" placeholder="What's on your mind? Share something fun! 😊" maxlength="200"></textarea>
+                            <div class="post-actions">
+                                <div class="emoji-picker">
+                                    <button class="emoji-btn" onclick="toggleEmojiPicker()">
+                                        <i class="fas fa-smile"></i>
+                                    </button>
+                                    <div id="emojiPicker" class="emoji-picker-dropdown">
+                                        <span onclick="addEmoji('😊')">😊</span>
+                                        <span onclick="addEmoji('🎉')">🎉</span>
+                                        <span onclick="addEmoji('🌟')">🌟</span>
+                                        <span onclick="addEmoji('🎨')">🎨</span>
+                                        <span onclick="addEmoji('🦄')">🦄</span>
+                                        <span onclick="addEmoji('🌈')">🌈</span>
+                                        <span onclick="addEmoji('🎮')">🎮</span>
+                                        <span onclick="addEmoji('🍕')">🍕</span>
+                                        <span onclick="addEmoji('🐱')">🐱</span>
+                                        <span onclick="addEmoji('🐶')">🐶</span>
+                                        <span onclick="addEmoji('🦋')">🦋</span>
+                                        <span onclick="addEmoji('🌺')">🌺</span>
+                                    </div>
+                                </div>
+                                <button id="createPostBtn" class="post-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Share
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div id="storyResult" class="story-result"></div>
+                </div>
+
+                <div class="posts-feed" id="postsFeed">
+                    <!-- Posts will be dynamically added here -->
                 </div>
             </section>
-        </main>
+
+            <!-- Right Section - Story Creation -->
+            <section class="right-section">
+                <div class="story-creation">
+                    <h3><i class="fas fa-magic"></i> Create Story</h3>
+                    
+                    <div class="story-options">
+                        <button class="story-option-btn" onclick="app.openNewStory()">
+                            <i class="fas fa-edit"></i>
+                            Write New Story
+                        </button>
+                        
+                        <button class="story-option-btn" onclick="app.openAIStory()">
+                            <i class="fas fa-wand-magic-sparkles"></i>
+                            AI Story Generator
+                        </button>
+                    </div>
+
+                    <div class="ai-story-section" id="aiStorySection" style="display: none;">
+                        <h4>AI Story Generator</h4>
+                        <p>Let AI create a fun story for you!</p>
+                        <div class="story-input">
+                            <input type="text" id="storyPrompt" placeholder="Tell me about your favorite animal or adventure..." maxlength="100">
+                            <button id="generateStoryBtn" class="story-btn">
+                                <i class="fas fa-wand-magic-sparkles"></i>
+                                Generate Story
+                            </button>
+                        </div>
+                        <div id="storyResult" class="story-result"></div>
+                    </div>
+
+                    <div class="new-story-section" id="newStorySection" style="display: none;">
+                        <h4>Write Your Story</h4>
+                        <textarea id="newStoryText" placeholder="Write your own amazing story here..." maxlength="500"></textarea>
+                        <button class="story-btn" onclick="app.saveNewStory()">
+                            <i class="fas fa-save"></i>
+                            Save Story
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-cog"></i> Settings</h2>
+                    <button class="close-btn" onclick="app.closeSettings()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h3>App Settings</h3>
+                        <div class="settings-buttons">
+                            <button class="settings-btn-item" onclick="app.clearAllPosts()">
+                                <i class="fas fa-trash"></i>
+                                Clear All Posts
+                            </button>
+                            <button class="settings-btn-item" onclick="app.clearAllStories()">
+                                <i class="fas fa-magic"></i>
+                                Clear Stories
+                            </button>
+                            <button class="settings-btn-item" onclick="app.resetProfile()">
+                                <i class="fas fa-user"></i>
+                                Reset Profile
+                            </button>
+                            <button class="settings-btn-item warning" onclick="app.resetEverything()">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Reset Everything
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Floating Action Button -->
         <div class="fab" onclick="scrollToTop()">
             <i class="fas fa-arrow-up"></i>
-        </div>
-
-        <!-- Reset Options -->
-        <div class="reset-section">
-            <div class="reset-content">
-                <h3><i class="fas fa-cog"></i> App Settings</h3>
-                <div class="reset-buttons">
-                    <button class="reset-btn" onclick="app.clearAllPosts()">
-                        <i class="fas fa-trash"></i>
-                        Clear All Posts
-                    </button>
-                    <button class="reset-btn" onclick="app.clearAllStories()">
-                        <i class="fas fa-magic"></i>
-                        Clear Stories
-                    </button>
-                    <button class="reset-btn" onclick="app.resetProfile()">
-                        <i class="fas fa-user"></i>
-                        Reset Profile
-                    </button>
-                    <button class="reset-btn warning" onclick="app.resetEverything()">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        Reset Everything
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 
